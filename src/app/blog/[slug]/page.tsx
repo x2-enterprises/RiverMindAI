@@ -2,14 +2,10 @@ import { getPostBySlug } from '@/utils/blog'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
-type SearchParams = { [key: string]: string | string[] | undefined }
-
 export async function generateMetadata({ 
   params,
-  searchParams,
 }: {
   params: { slug: string }
-  searchParams: SearchParams
 }): Promise<Metadata> {
   const post = getPostBySlug(params.slug)
   if (!post) {
@@ -25,10 +21,8 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({
   params,
-  searchParams,
 }: {
   params: { slug: string }
-  searchParams: SearchParams
 }) {
   const post = getPostBySlug(params.slug)
 

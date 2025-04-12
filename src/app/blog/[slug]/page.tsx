@@ -2,14 +2,11 @@ import { getPostBySlug } from '@/utils/blog'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
-// 👇 Explicitly declare the prop type to prevent Next.js from inferring anything weird
-type BlogPageProps = {
-  params: {
-    slug: string
-  }
+type Props = {
+  params: { slug: string }
 }
 
-export function generateMetadata({ params }: BlogPageProps): Metadata {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(params.slug)
   if (!post) {
     return {
@@ -22,7 +19,7 @@ export function generateMetadata({ params }: BlogPageProps): Metadata {
   }
 }
 
-export default function BlogPostPage({ params }: BlogPageProps) {
+export default async function BlogPostPage({ params }: Props) {
   const post = getPostBySlug(params.slug)
 
   if (!post) {

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import Image from "next/image";
+import Link from 'next/link'
 
 const LiveSubscriberCount = () => {
   const [count, setCount] = useState(127843)
@@ -68,12 +68,12 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <a 
+            <Link 
               href="/pricing" 
               className="inline-block bg-[#ff6ec7] hover:bg-[#ff6ec7]/90 text-white px-8 py-4 rounded-md text-lg font-semibold transition-colors"
             >
               Choose Your Plan
-            </a>
+            </Link>
           </motion.div>
           
           <motion.div

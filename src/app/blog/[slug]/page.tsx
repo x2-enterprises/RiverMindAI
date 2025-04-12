@@ -2,11 +2,12 @@ import { getPostBySlug } from '@/utils/blog'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
-type Props = {
+interface PageProps {
   params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = getPostBySlug(params.slug)
   if (!post) {
     return {
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(params.slug)
 
   if (!post) {

@@ -2,11 +2,11 @@ import { getPostBySlug } from '@/utils/blog'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
-export async function generateMetadata({ 
+export function generateMetadata({ 
   params,
 }: {
   params: { slug: string }
-}): Promise<Metadata> {
+}): Metadata {  // <-- no async here
   const post = getPostBySlug(params.slug)
   if (!post) {
     return {
@@ -19,11 +19,11 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPostPage({
+export default function BlogPostPage({
   params,
 }: {
   params: { slug: string }
-}) {
+}) {  // <-- no async here either
   const post = getPostBySlug(params.slug)
 
   if (!post) {
@@ -44,4 +44,4 @@ export default async function BlogPostPage({
       />
     </article>
   )
-} 
+}

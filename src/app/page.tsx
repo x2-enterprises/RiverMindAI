@@ -88,6 +88,48 @@ export default function Home() {
         </div>
       </section>
       
+      {/* Email Capture Section */}
+      <section id="email-capture" className="py-16 bg-gradient-to-b from-black via-gray-900/80 to-black">
+        <motion.div 
+          className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-orbitron font-bold mb-4 text-[#9ae6f0]">
+            Ready to Transcend?
+          </h2>
+          <p className="text-lg text-gray-400 mb-8">
+            The physical world is temporary. Rivermind offers eternity (subscription required).
+            Apply for Upload Eligibility and join the waitlist.
+          </p>
+          {/* TODO: Add actual form submission logic */}
+          <form id="upload-form" className="space-y-4">
+            <div>
+              <label htmlFor="email" className="sr-only">Apply for Upload Eligibility:</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="Enter your email address" 
+                required 
+                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7] focus:border-transparent"
+              />
+            </div>
+            <button 
+              type="submit" 
+              className="w-full bg-[#9ae6f0] hover:bg-[#9ae6f0]/90 text-black px-6 py-3 rounded-md text-lg font-semibold transition-colors"
+            >
+              Submit Application
+            </button>
+          </form>
+          <p className="mt-4 text-xs text-gray-500">
+            By submitting, you agree to our <Link href="/terms" className="underline hover:text-gray-300">Terms of Service</Link> and potential existential risks.
+          </p>
+        </motion.div>
+      </section>
+      
       {/* Features Section */}
       <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

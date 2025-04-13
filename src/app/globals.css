@@ -112,6 +112,6 @@
 
 .animate-ticker {
   display: inline-block; /* Needed for transform */
-  animation: ticker-scroll 15s linear infinite; /* Adjust duration as needed */
+  animation: ticker-scroll 60s linear infinite; /* Increased duration for longer text */
   white-space: nowrap; /* Prevent wrapping */
 }

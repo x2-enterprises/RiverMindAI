@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const headlines = [
   "BREAKING: Rivermind experiences brief outage; subscribers forget entire childhoods.",
@@ -13,22 +13,16 @@ const headlines = [
   "Debate Erupts: Is experiencing ads in your dreams a 'feature' or a 'bug'?"
 ];
 
+// Combine headlines into a single string, separated and repeated for smooth looping
+const tickerText = headlines.join('  •  ') + '  •  '; // Add separator between headlines
+const repeatedTickerText = tickerText.repeat(3); // Repeat the whole sequence 3 times
+
 const NewsTicker: React.FC = () => {
-  const [currentHeadlineIndex, setCurrentHeadlineIndex] = useState(0);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentHeadlineIndex((prevIndex) => (prevIndex + 1) % headlines.length);
-    }, 5000); // Change headline every 5 seconds
-
-    return () => clearInterval(intervalId);
-  }, []);
-
   return (
-    <div className="bg-gradient-to-r from-[#ff6ec7]/80 via-[#ff6ec7]/70 to-[#9ae6f0]/80 text-black text-sm py-2 px-4 overflow-hidden whitespace-nowrap">
+    <div role="alert" className="bg-gradient-to-r from-[#ff6ec7]/80 via-[#ff6ec7]/70 to-[#9ae6f0]/80 text-black text-sm py-2 px-4 overflow-hidden whitespace-nowrap">
       <div className="inline-block animate-ticker">
         <span className="font-semibold mr-2">LATEST NEWS:</span>
-        <span>{headlines[currentHeadlineIndex]}</span>
+        <span>{repeatedTickerText}</span>
       </div>
     </div>
   );

@@ -99,3 +99,19 @@
     clip-path: inset(54px 0 calc(100% - 55px) 0);
   }
 }
+
+/* Add ticker animation */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-ticker {
+  display: inline-block; /* Needed for transform */
+  animation: ticker-scroll 15s linear infinite; /* Adjust duration as needed */
+  white-space: nowrap; /* Prevent wrapping */
+}

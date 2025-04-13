@@ -3,6 +3,7 @@ import { Inter, Orbitron } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import MobileNav from "@/components/MobileNav";
+import NewsTicker from "@/components/NewsTicker";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
@@ -27,28 +28,31 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${orbitron.variable}`}>
       <body className="min-h-screen bg-black text-white">
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex items-center">
-                <Link href="/" className="font-orbitron text-2xl font-bold bg-gradient-to-r from-[#9ae6f0] to-[#ff6ec7] text-transparent bg-clip-text">
-                  RiverMind.ai
-                </Link>
+        <div className="sticky top-0 z-50">
+          <nav className="bg-black/80 backdrop-blur-md border-b border-white/10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between h-16">
+                <div className="flex items-center">
+                  <Link href="/" className="font-orbitron text-2xl font-bold bg-gradient-to-r from-[#9ae6f0] to-[#ff6ec7] text-transparent bg-clip-text">
+                    RiverMind.ai
+                  </Link>
+                </div>
+                <div className="hidden sm:flex items-center space-x-8">
+                  <Link href="/pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</Link>
+                  <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
+                  <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
+                  <Link href="/store" className="text-gray-300 hover:text-white transition-colors">Store</Link>
+                  <Link href="/pricing" className="bg-[#ff6ec7] hover:bg-[#ff6ec7]/90 text-white px-4 py-2 rounded-md transition-colors">
+                    Choose Your Plan
+                  </Link>
+                </div>
+                <MobileNav />
               </div>
-              <div className="hidden sm:flex items-center space-x-8">
-                <Link href="/pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</Link>
-                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-                <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
-                <Link href="/store" className="text-gray-300 hover:text-white transition-colors">Store</Link>
-                <Link href="/pricing" className="bg-[#ff6ec7] hover:bg-[#ff6ec7]/90 text-white px-4 py-2 rounded-md transition-colors">
-                  Choose Your Plan
-                </Link>
-              </div>
-              <MobileNav />
             </div>
-          </div>
-        </nav>
-        <main className="pt-16">
+          </nav>
+          <NewsTicker />
+        </div>
+        <main className="pt-4">
           {children}
         </main>
         <footer className="bg-black/90 border-t border-white/10 py-8 mt-20">

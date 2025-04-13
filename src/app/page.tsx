@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import TestimonialGenerator from '@/components/TestimonialGenerator'
 
 const LiveSubscriberCount = () => {
   const [count, setCount] = useState(127843)
@@ -123,6 +124,11 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+      
+      {/* Testimonial Section */}
+      <section className="py-16 bg-black/95">
+         <TestimonialGenerator />
       </section>
     </div>
   );

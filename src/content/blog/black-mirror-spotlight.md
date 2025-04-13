@@ -1,6 +1,6 @@
 ---
 title: "Spotlight Shines Bright: Increased Interest Following Popular Docu-Series Feature"
-date: "2024-07-30" # Placeholder date
+date: "2025-04-11" # Updated date
 author: "Rivermind Public Relations Dept."
 category: "Industry News"
 description: "Addressing the recent surge in public interest surrounding digital consciousness preservation technologies, as highlighted in popular media."

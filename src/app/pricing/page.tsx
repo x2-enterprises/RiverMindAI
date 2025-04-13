@@ -2,66 +2,80 @@
 
 import { motion } from 'framer-motion'
 
+// Black Mirror Inspired Tiers
 const tiers = [
   {
-    name: 'Basic Consciousness',
-    price: '$9.99',
+    name: 'Common',
+    price: '$300',
     period: '/mo',
-    description: 'Perfect for those just starting their digital afterlife journey.',
+    description: 'Basic cognitive viability and local stream access.',
     features: [
-      'Ads injected into speech',
-      '5-mile movement limit',
-      'Basic memory storage (2TB)',
-      'Shared processing power',
-      'Weekly consciousness backups',
-      'Emergency tech support (48hr response)',
+      '✔️ Sustains Cognitive Viability',
+      '✔️ Local Signal Only (No Roaming)',
+      '🕒 12-16 hrs/day Sleep Mode (Network Duty)',
+      '📢 Mandatory Ad Injections',
     ],
     limitations: [
-      'No ad-blocking available',
-      'Limited memory compression',
-      'Shared dream server',
-    ]
+      'Movement restricted to designated local zone',
+      'Standard ad load, non-skippable',
+      'May be utilized as network node during sleep',
+    ],
+    disabled: true,
+    buttonText: 'Currently At Capacity'
   },
   {
-    name: 'Premium Self',
-    price: '$49.99',
+    name: 'Plus',
+    price: '$800',
     period: '/mo',
-    description: 'Enhanced digital existence with premium features.',
+    description: 'Expanded access and potentially reduced downtime.',
     features: [
-      'Ad-free experience',
-      '50% memory retention',
-      'Priority processing power',
-      'Extended movement range (50 miles)',
-      'Daily consciousness backups',
-      'Premium tech support (12hr response)',
-      'Custom dream settings',
+      '✔️ All Common Features',
+      '🌐 Nationwide Signal Coverage',
+      '📉 Reduced Sleep Mode Duration (Likely)',
+      '📉 Reduced Ad Frequency (Potentially)',
     ],
     limitations: [
-      'Some memory degradation',
-      'Limited multiverse access',
+      'Ad frequency reduction not guaranteed',
+      'Sleep duration subject to network load',
     ],
-    popular: true,
+    popular: true, // Keep popular highlight if desired
+    buttonText: 'Select Plan'
   },
   {
-    name: 'Eternal You',
-    price: '$99.99',
+    name: 'Lux',
+    price: '$1800',
     period: '/mo',
-    description: 'The ultimate digital immortality experience.',
+    description: 'Premium features including emotional tuning and skill borrowing.',
     features: [
-      'Full self preservation',
-      '24/7 uptime guarantee*',
-      'Unlimited movement range',
-      'Dedicated processing cores',
-      'Real-time consciousness backups',
-      'Instant tech support',
-      'Private dream server',
-      'Multiverse access',
-      'Memory expansion ready',
+      '✔️ All Plus Features',
+      '🎭 Emotional Tuning via App',
+      '🧠 Borrow Skills from Other Units',
+      '✨ Enhanced Sensory Pleasure Matrix',
     ],
     limitations: [
-      'Terms intentionally unclear',
-      'Results may vary',
-    ]
+      'Skill borrowing subject to availability and compatibility',
+      'Emotional tuning requires user consent (initially)',
+    ],
+    buttonText: 'Select Plan'
+  },
+  {
+    name: 'Lux Boost',
+    price: 'On-Demand',
+    period: '',
+    description: 'Temporary access to Lux features for specific durations.',
+    features: [
+      '⚡ Short-Term Lux Access (6hr, 12hr, 1 Day)',
+      '✔️ Emotional Tuning',
+      '✔️ Borrowed Skills',
+      '✔️ Sensory Enhancement',
+      'Requires Existing Plan',
+    ],
+    limitations: [
+      'Boost duration strictly enforced',
+      'Pricing varies based on demand & unit metrics',
+    ],
+    disabled: true,
+    buttonText: 'Inquire Within App'
   }
 ]
 
@@ -76,7 +90,7 @@ export default function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Choose Your Digital Destiny
+            Choose Your Eternity Plan
           </motion.h1>
           <motion.p 
             className="text-xl text-gray-400 max-w-2xl mx-auto"
@@ -84,20 +98,19 @@ export default function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Select the consciousness plan that best fits your digital afterlife needs.
-            All plans include our patented mind-upload technology.
+            Select the consciousness package that best suits your existential budget and desired level of digital sentience.
           </motion.p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {tiers.map((tier, index) => (
             <motion.div
               key={tier.name}
               className={`relative rounded-2xl border ${
                 tier.popular 
-                  ? 'border-[#ff6ec7]' 
+                  ? 'border-[#ff6ec7]'
                   : 'border-white/10'
-              } bg-black/50 backdrop-blur-sm p-8 shadow-xl`}
+              } bg-black/50 backdrop-blur-sm p-8 shadow-xl flex flex-col`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
@@ -111,20 +124,17 @@ export default function PricingPage() {
               )}
 
               <div className="mb-8">
-                <h3 className="text-2xl font-orbitron font-bold mb-4">{tier.name}</h3>
-                <div className="flex items-baseline">
+                <h3 className="text-2xl font-orbitron font-bold mb-4 text-center">{tier.name}</h3>
+                <div className="flex items-baseline justify-center">
                   <span className="text-4xl font-bold">{tier.price}</span>
                   <span className="text-gray-400 ml-2">{tier.period}</span>
                 </div>
-                <p className="mt-4 text-gray-400">{tier.description}</p>
+                <p className="mt-4 text-gray-400 text-sm text-center">{tier.description}</p>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-4 mb-8 flex-grow">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center">
-                    <svg className="h-5 w-5 text-[#9ae6f0] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                  <li key={feature} className="flex items-center text-sm">
                     {feature}
                   </li>
                 ))}
@@ -132,13 +142,11 @@ export default function PricingPage() {
 
               {tier.limitations && (
                 <div className="mb-8">
-                  <h4 className="text-sm font-semibold text-gray-400 mb-4">Limitations:</h4>
-                  <ul className="space-y-2">
+                  <h4 className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Limitations:</h4>
+                  <ul className="space-y-1">
                     {tier.limitations.map((limitation) => (
-                      <li key={limitation} className="flex items-center text-sm text-gray-500">
-                        <svg className="h-4 w-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                      <li key={limitation} className="flex items-center text-xs text-gray-500">
+                        <span className="mr-2">&#x26A0;</span>
                         {limitation}
                       </li>
                     ))}
@@ -146,16 +154,18 @@ export default function PricingPage() {
                 </div>
               )}
 
-              <a
-                href="/terms"
-                className={`block w-full text-center py-3 px-6 rounded-lg transition-colors ${
-                  tier.popular
-                    ? 'bg-[#ff6ec7] hover:bg-[#ff6ec7]/90 text-white'
-                    : 'bg-white/10 hover:bg-white/20 text-white'
+              <button
+                disabled={tier.disabled}
+                className={`block w-full text-center py-3 px-6 rounded-lg transition-colors mt-auto ${
+                  tier.disabled 
+                    ? 'bg-gray-600 cursor-not-allowed text-gray-400'
+                    : tier.popular
+                      ? 'bg-[#ff6ec7] hover:bg-[#ff6ec7]/90 text-white'
+                      : 'bg-white/10 hover:bg-white/20 text-white'
                 }`}
               >
-                Choose Plan
-              </a>
+                {tier.buttonText}
+              </button>
             </motion.div>
           ))}
         </div>
@@ -166,9 +176,8 @@ export default function PricingPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
-          * Uptime guarantee subject to quantum fluctuations, parallel universe interference, and regular maintenance windows. 
-          Memory retention rates may vary based on cognitive complexity and subscription tier. 
-          Please read our Terms of Service for complete details about consciousness transfer limitations and potential side effects.
+          Prices subject to change based on server load, market fluctuations, and your calculated cognitive value score. 
+          Upload fees not included. <a href="/terms" className="underline hover:text-white">Terms of Service</a> apply.
         </motion.div>
       </div>
     </div>

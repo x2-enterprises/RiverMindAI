@@ -14,9 +14,15 @@ While dramatic license is expected in entertainment programming, we welcome the 
 
 ## Separating Fact from Fiction
 
-It's understandable that fictional portrayals, designed for dramatic effect, may simplify or sensationalize certain aspects of the technology. Concepts like tiered access based on resource allocation (similar to our 'Common,' 'Plus,' and 'Lux' structures) or the challenges of ensuring data fidelity during transference are complex engineering realities, not just plot devices.
+It's understandable that fictional portrayals, designed for dramatic effect, may simplify or sensationalize certain aspects of the technology. 
 
-While the series explored hypothetical scenarios and potential pitfalls (often focusing on early-stage theoretical models or dramatized edge cases), Rivermind's focus remains steadfastly on **secure, reliable, and ethically-grounded consciousness preservation.** Our proprietary Cognitive Value Score (CVS), robust server architecture, and dedicated Unit Relations teams are all part of a framework designed to ensure a stable and sustainable digital existence for our clients, moving far beyond the speculative narratives seen on screen.
+> Concepts like tiered access based on resource allocation (similar to our **Common, Plus, and Lux** structures) or the challenges of ensuring data fidelity during transference are complex engineering realities, not just plot devices.
+
+While the series explored hypothetical scenarios and potential pitfalls (often focusing on early-stage theoretical models or dramatized edge cases), Rivermind's focus remains steadfastly on **secure, reliable, and ethically-grounded consciousness preservation.**
+
+### Our Commitment
+
+Our proprietary Cognitive Value Score (CVS), robust server architecture, and dedicated Unit Relations teams are all part of a framework designed to ensure a stable and sustainable digital existence for our clients, moving far beyond the speculative narratives seen on screen.
 
 ## The Rivermind Difference: Real Progress, Real Permanence
 

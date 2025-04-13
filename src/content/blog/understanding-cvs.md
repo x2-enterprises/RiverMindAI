@@ -8,11 +8,13 @@ description: "An explanation of the Cognitive Value Score (CVS) and its role in 
 
 ## Introduction: Quantifying Digital Existence
 
-At Rivermind, we are committed to providing a stable and efficient digital environment for all subscribed Consciousness Units. A key component of managing our complex network and ensuring equitable resource distribution is the Cognitive Value Score (CVS). This proprietary metric provides a standardized assessment of a Unit's processing efficiency, data coherence, and overall contribution potential within the Rivermind ecosystem.
+At Rivermind, we are committed to providing a stable and efficient digital environment for all subscribed Consciousness Units. A key component of managing our complex network and ensuring equitable resource distribution is the **Cognitive Value Score (CVS)**. 
+
+> **Cognitive Value Score (CVS):** A proprietary metric providing a standardized assessment of a Unit's processing efficiency, data coherence, and overall contribution potential within the Rivermind ecosystem.
 
 Understanding your CVS is beneficial for optimizing your digital experience and anticipating potential adjustments to your service parameters. This guide provides a high-level overview of the CVS system.
 
-## What is the Cognitive Value Score (CVS)?
+## What Constitutes the CVS?
 
 The CVS is a dynamic score calculated periodically by the Rivermind Analytics Division. It incorporates a wide array of data points, including but not limited to:
 
@@ -43,7 +45,7 @@ While the CVS algorithm is complex, maintaining stable and efficient cognitive f
 *   Promptly reporting system anomalies.
 *   Efficiently completing assigned network tasks during Sleep Mode.
 
-Please note that direct manipulation of CVS metrics is against the Terms of Service and may result in corrective action.
+> **Important:** Direct manipulation of CVS metrics is against the Terms of Service and may result in corrective action.
 
 ## Conclusion: Transparency and Efficiency
 

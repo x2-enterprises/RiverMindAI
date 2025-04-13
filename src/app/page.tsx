@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import TestimonialGenerator from '@/components/TestimonialGenerator'
 
 const LiveSubscriberCount = () => {
@@ -31,11 +32,15 @@ const EmailCaptureForm = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const [showSurveyModal, setShowSurveyModal] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus('loading');
     setMessage('Submitting application...');
+    setShowSurveyModal(false); // Ensure modal is hidden initially
+    console.log('[EmailForm] Submitting...');
 
     try {
       const response = await fetch('https://formspree.io/f/meoandky', {
@@ -47,51 +52,101 @@ const EmailCaptureForm = () => {
         body: JSON.stringify({ email }), // Send email as JSON
       });
 
+      console.log('[EmailForm] Response status:', response.status);
+      console.log('[EmailForm] Response ok?:', response.ok);
+
       if (response.ok) {
+        console.log('[EmailForm] Entering response.ok block.');
         setStatus('success');
-        setMessage('Application Received! Your consciousness is pending review... (Check your email for confirmation from Formspree).');
+        setMessage('Application Received! Your consciousness is pending review...');
         setEmail(''); // Clear the form
+        console.log('[EmailForm] Submission successful. Setting timer for modal...');
+        const timerId = setTimeout(() => {
+          console.log('[EmailForm] Timer finished. Showing modal.');
+          setShowSurveyModal(true);
+        }, 1750);
+        console.log('[EmailForm] setTimeout scheduled with ID:', timerId);
       } else {
+        console.log('[EmailForm] Entering response NOT ok block.');
         const data = await response.json();
         setStatus('error');
         setMessage(data.errors?.map((e: any) => e.message).join(", ") || 'An error occurred. Please try again.');
+        console.error('[EmailForm] Submission error response:', data);
       }
     } catch (error) {
+      console.error('[EmailForm] Entering CATCH block.');
       setStatus('error');
       setMessage('An unexpected error occurred. Please check your connection and try again.');
-      console.error("Form submission error:", error);
+      console.error("[EmailForm] Form submission fetch/catch error:", error);
     }
   };
 
   return (
-    <form id="upload-form" onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="email" className="sr-only">Apply for Upload Eligibility:</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          placeholder="Enter your email address" 
-          required 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+    <div className="relative">
+      <form id="upload-form" onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="email" className="sr-only">Apply for Upload Eligibility:</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="Enter your email address" 
+            required 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={status === 'loading'}
+            className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7] focus:border-transparent disabled:opacity-50"
+          />
+        </div>
+        <button 
+          type="submit" 
           disabled={status === 'loading'}
-          className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7] focus:border-transparent disabled:opacity-50"
-        />
-      </div>
-      <button 
-        type="submit" 
-        disabled={status === 'loading'}
-        className="w-full bg-[#9ae6f0] hover:bg-[#9ae6f0]/90 text-black px-6 py-3 rounded-md text-lg font-semibold transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
-      >
-        {status === 'loading' ? 'Submitting...' : 'Submit Application'}
-      </button>
-      {message && (
-        <p className={`mt-4 text-sm ${status === 'error' ? 'text-red-400' : status === 'success' ? 'text-green-400' : 'text-gray-400'}`}>
-          {message}
-        </p>
+          onClick={() => console.log('[EmailForm] Submit button clicked!')}
+          className="w-full bg-[#9ae6f0] hover:bg-[#9ae6f0]/90 text-black px-6 py-3 rounded-md text-lg font-semibold transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+        >
+          {status === 'loading' ? 'Submitting...' : 'Submit Application'}
+        </button>
+        {message && (
+          <p className={`mt-4 text-sm ${status === 'error' ? 'text-red-400' : status === 'success' ? 'text-green-400' : 'text-gray-400'}`}>
+            {message}
+          </p>
+        )}
+      </form>
+
+      {/* Vetting Survey Modal */}
+      {showSurveyModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div 
+            className="bg-gray-900 border border-gray-700 rounded-lg p-8 max-w-md w-full text-center shadow-xl"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            >
+            <h2 className="text-2xl font-orbitron font-bold mb-4 text-[#9ae6f0]">
+              Fast-track your approval
+            </h2>
+            <p className="text-gray-400 mb-6">
+              Your application is received. To accelerate your Eternal You™ approval, please complete your Neural Compliance Survey.
+            </p>
+            <button 
+              onClick={() => {
+                router.push('/vetting');
+                setShowSurveyModal(false);
+              }}
+              className="w-full bg-[#ff6ec7] hover:bg-[#ff6ec7]/90 text-white px-6 py-3 rounded-md text-lg font-semibold transition-colors"
+              >
+              Begin Survey →
+            </button>
+            <button
+              onClick={() => setShowSurveyModal(false)}
+              className="mt-4 text-sm text-gray-500 hover:text-gray-300 transition-colors"
+              >
+              Maybe Later
+            </button>
+          </motion.div>
+        </div>
       )}
-    </form>
+    </div>
   );
 }
 
@@ -173,8 +228,7 @@ export default function Home() {
             The physical world is temporary. Rivermind offers eternity (subscription required).
             Apply for Upload Eligibility and join the waitlist.
           </p>
-          {/* Removed TODO comment and form structure, replaced with component */}
-          <EmailCaptureForm /> {/* Use the new form component */} 
+          <EmailCaptureForm />
           <p className="mt-4 text-xs text-gray-500">
             By submitting, you agree to our <Link href="/terms" className="underline hover:text-gray-300">Terms of Service</Link> and potential existential risks.
           </p>

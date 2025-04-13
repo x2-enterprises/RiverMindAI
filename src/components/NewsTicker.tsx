@@ -13,16 +13,18 @@ const headlines = [
   "Debate Erupts: Is experiencing ads in your dreams a 'feature' or a 'bug'?"
 ];
 
-// Combine headlines into a single string, separated and repeated for smooth looping
-const tickerText = headlines.join('  •  ') + '  •  '; // Add separator between headlines
-const repeatedTickerText = tickerText.repeat(3); // Repeat the whole sequence 3 times
+// Combine headlines into a single string
+const tickerText = headlines.join('  •  ') + '  •  ';
 
 const NewsTicker: React.FC = () => {
   return (
     <div role="alert" className="bg-gradient-to-r from-[#ff6ec7]/80 via-[#ff6ec7]/70 to-[#9ae6f0]/80 text-black text-sm py-2 px-4 overflow-hidden whitespace-nowrap">
       <div className="inline-block animate-ticker">
+        {/* Render the text twice for seamless looping */}
         <span className="font-semibold mr-2">LATEST NEWS:</span>
-        <span>{repeatedTickerText}</span>
+        <span>{tickerText}</span>
+        <span className="font-semibold mr-2 ml-4">LATEST NEWS:</span> {/* Add spacing and repeat prefix */}
+        <span>{tickerText}</span>
       </div>
     </div>
   );

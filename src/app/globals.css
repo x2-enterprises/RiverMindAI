@@ -103,15 +103,15 @@
 /* Add ticker animation */
 @keyframes ticker-scroll {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%); /* Start at original position */
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%); /* Move left by the width of one text block */
   }
 }
 
 .animate-ticker {
   display: inline-block; /* Needed for transform */
-  animation: ticker-scroll 60s linear infinite; /* Increased duration for longer text */
+  animation: ticker-scroll 180s linear infinite; /* Much longer duration for slower speed */
   white-space: nowrap; /* Prevent wrapping */
 }

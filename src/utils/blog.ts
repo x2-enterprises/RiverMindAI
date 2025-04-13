@@ -1,64 +1,103 @@
-interface BlogPost {
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
+
+// Define the structure for blog post metadata and content
+export interface BlogPost {
   slug: string
   title: string
   date: string
   author: string
-  excerpt: string
-  content: string
+  category: string // Added category
+  description: string // Added description (excerpt)
+  content: string // Raw Markdown content
 }
 
-// This is a mock database of blog posts
-// In a real application, this would be fetched from a CMS or database
-const posts: BlogPost[] = [
-  {
-    slug: 'getting-started-with-next-js',
-    title: 'Getting Started with Next.js',
-    date: '2024-03-20',
-    author: 'John Doe',
-    excerpt: 'Learn how to build modern web applications with Next.js, the React framework for production.',
-    content: `
-      <p>Next.js is a powerful React framework that makes it easy to build fast, modern websites. 
-      It provides features like server-side rendering, static site generation, and API routes out of the box.</p>
-      
-      <h2>Why Next.js?</h2>
-      <p>Next.js simplifies the development process by providing:</p>
-      <ul>
-        <li>Automatic code splitting</li>
-        <li>Built-in CSS and Sass support</li>
-        <li>Fast refresh</li>
-        <li>API routes</li>
-      </ul>
-    `
-  },
-  {
-    slug: 'mastering-typescript',
-    title: 'Mastering TypeScript',
-    date: '2024-03-18',
-    author: 'Jane Smith',
-    excerpt: 'Discover the benefits of TypeScript and how it can improve your JavaScript development experience.',
-    content: `
-      <p>TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. 
-      It adds optional types, classes, and modules to JavaScript, making it easier to write and maintain large applications.</p>
-      
-      <h2>Key Features</h2>
-      <p>TypeScript offers several advantages:</p>
-      <ul>
-        <li>Static typing</li>
-        <li>Object-oriented features</li>
-        <li>IDE support</li>
-        <li>ECMAScript compatibility</li>
-      </ul>
-    `
-  }
-]
+// Define the structure for the frontmatter data
+interface FrontmatterData {
+  title: string
+  date: string
+  author: string
+  category: string
+  description: string
+}
+
+const postsDirectory = path.join(process.cwd(), 'src/content/blog')
 
 export function getAllPosts(): BlogPost[] {
-  // Sort posts by date in descending order
-  return [...posts].sort((a, b) => 
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
+  try {
+    // Get file names under /src/content/blog
+    const fileNames = fs.readdirSync(postsDirectory)
+    const allPostsData = fileNames
+      .filter(fileName => fileName.endsWith('.md')) // Ensure we only read Markdown files
+      .map(fileName => {
+        // Remove ".md" from file name to get slug
+        const slug = fileName.replace(/\.md$/, '')
+
+        // Read markdown file as string
+        const fullPath = path.join(postsDirectory, fileName)
+        const fileContents = fs.readFileSync(fullPath, 'utf8')
+
+        // Use gray-matter to parse the post metadata section
+        const matterResult = matter(fileContents)
+        const data = matterResult.data as FrontmatterData
+
+        // Combine the data with the slug and content
+        return {
+          slug,
+          content: matterResult.content,
+          ...(data || {}), // Spread frontmatter data, provide empty obj fallback
+          // Ensure required fields have fallbacks if missing in frontmatter
+          title: data?.title ?? 'Untitled Post',
+          date: data?.date ?? new Date().toISOString().split('T')[0], // Default to today
+          author: data?.author ?? 'Rivermind Staff',
+          category: data?.category ?? 'Uncategorized',
+          description: data?.description ?? 'No description available.',
+        }
+      })
+
+    // Sort posts by date in descending order
+    return allPostsData.sort((a, b) => {
+      try {
+        return new Date(b.date).getTime() - new Date(a.date).getTime()
+      } catch (e) {
+        console.error(`Error parsing dates for sorting: ${a.slug} (${a.date}), ${b.slug} (${b.date})`);
+        return 0; // Keep original order if dates are invalid
+      }
+    })
+  } catch (error) {
+    console.error("Error reading blog posts:", error);
+    return []; // Return empty array on error
+  }
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return posts.find(post => post.slug === slug)
+  const fullPath = path.join(postsDirectory, `${slug}.md`)
+  try {
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`Blog post not found for slug: ${slug}`);
+      return undefined; // Return undefined if file doesn't exist
+    }
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents)
+    const data = matterResult.data as FrontmatterData
+
+    // Combine the data with the slug and content
+    return {
+      slug,
+      content: matterResult.content,
+      ...(data || {}), // Spread frontmatter data
+      // Provide fallbacks for required fields
+      title: data?.title ?? 'Untitled Post',
+      date: data?.date ?? new Date().toISOString().split('T')[0],
+      author: data?.author ?? 'Rivermind Staff',
+      category: data?.category ?? 'Uncategorized',
+      description: data?.description ?? 'No description available.',
+    }
+  } catch (error) {
+     console.error(`Error reading blog post for slug ${slug}:`, error);
+     return undefined; // Return undefined on error
+  }
 } 

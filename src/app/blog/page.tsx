@@ -20,7 +20,7 @@ export default function BlogPage() {
               <span className="mx-2">•</span>
               <span>{post.author}</span>
             </div>
-            <p className="text-gray-700">{post.excerpt}</p>
+            <p className="text-gray-700">{post.description}</p>
             <Link
               href={`/blog/${post.slug}`}
               className="inline-block mt-4 text-blue-600 hover:text-blue-800 transition-colors"

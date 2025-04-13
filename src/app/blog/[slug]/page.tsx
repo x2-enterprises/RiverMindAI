@@ -18,7 +18,6 @@ export async function generateMetadata(
   }
 }
 
-// @ts-ignore - Suppress the confusing PageProps constraint error
 export default async function BlogPostPage({
   params,
 }: {

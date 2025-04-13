@@ -1,0 +1,386 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #0a0a23; /* Dark blue/black */
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+#email-capture {
+    background-color: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#email-capture h2 {
+    margin-top: 0;
+    color: #0a0a23;
+}
+
+#upload-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+#upload-form input[type="email"] {
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+}
+
+#upload-form button {
+    background-color: #007bff; /* Bright blue */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#upload-form button:hover {
+    background-color: #0056b3;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 1rem;
+}
+
+.disclaimer a {
+    color: #007bff;
+}
+
+/* News Ticker Styles */
+#news-ticker {
+    background-color: #222; /* Dark background for contrast */
+    color: #0f0; /* Green text like old terminals */
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #444;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#news-ticker h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #0f0; /* Green header */
+    text-align: center;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.ticker-content {
+    display: inline-block; /* Changed from flex to inline-block for simpler animation */
+    list-style: none;
+    padding-left: 100%; /* Start off-screen */
+    margin: 0;
+    white-space: nowrap; /* Keep items in a single line */
+    animation: ticker-scroll 30s linear infinite; /* Adjust duration as needed */
+}
+
+.ticker-content li {
+    display: inline-block; /* Display items horizontally */
+    padding: 0 2rem; /* Spacing between items */
+    font-size: 0.9rem;
+}
+
+/* Pause animation on hover */
+.ticker-wrap:hover .ticker-content {
+    animation-play-state: paused;
+}
+
+/* Keyframes for the scrolling animation */
+@keyframes ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Scroll across the width of the content */
+        /* This will need adjustment based on content length, but -100% is a start */
+        transform: translateX(-100%);
+    }
+}
+
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    background-color: #333;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* Merch Section Styles */
+#merch-preview {
+    background-color: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+#merch-preview h2 {
+    margin-top: 0;
+    color: #0a0a23;
+    margin-bottom: 1.5rem;
+}
+
+.merch-items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.merch-item {
+    border: 1px solid #eee;
+    padding: 1rem;
+    width: calc(33% - 3rem); /* Adjust based on gap and desired spacing */
+    min-width: 180px; /* Minimum width before wrapping */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    background-color: #fdfdfd;
+}
+
+.merch-item img {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* Keep images square-ish */
+    object-fit: cover; /* Cover the area, might crop */
+    background-color: #eee; /* Placeholder background */
+    margin-bottom: 1rem;
+}
+
+.merch-item h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.merch-item p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.merch-item .price {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-merch {
+    display: inline-block;
+    background-color: #28a745; /* Green button */
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-merch:hover {
+    background-color: #218838;
+}
+
+.merch-note {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 1.5rem;
+}
+
+/* Glitch Mode Easter Egg Styles */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+@keyframes text-flicker {
+  0% { opacity: 1; text-shadow: 0 0 2px rgba(255,0,0,0.5), 0 0 2px rgba(0,255,255,0.5); }
+  5% { opacity: 0.8; text-shadow: 1px 0 3px rgba(255,0,0,0.6), -1px 0 3px rgba(0,255,255,0.6); }
+  10% { opacity: 1; text-shadow: -1px 0 2px rgba(255,0,0,0.5), 1px 0 2px rgba(0,255,255,0.5); }
+  15% { opacity: 0.6; text-shadow: 0 1px 4px rgba(255,0,0,0.7), 0 -1px 4px rgba(0,255,255,0.7); }
+  20% { opacity: 1; text-shadow: 0 0 2px rgba(255,0,0,0.5), 0 0 2px rgba(0,255,255,0.5); }
+  /* Add more steps for more complex flicker */
+  100% { opacity: 1; text-shadow: 0 0 2px rgba(255,0,0,0.5), 0 0 2px rgba(0,255,255,0.5); }
+}
+
+body.glitch-mode {
+    animation: shake 0.15s 3 linear; /* Apply shake briefly */
+    overflow-x: hidden; /* Prevent scrollbars from shake */
+}
+
+body.glitch-mode * {
+    /* Apply a subtle flicker to most elements */
+    animation: text-flicker 0.3s infinite alternate;
+}
+
+/* Optionally, target specific elements for more intense effects */
+body.glitch-mode header h1 {
+    text-shadow: 2px 2px 0px rgba(255, 0, 0, 0.7),
+                 -2px -2px 0px rgba(0, 255, 255, 0.7);
+    color: #eee; /* Slightly change color */
+}
+
+body.glitch-mode #news-ticker {
+    border-color: red;
+    box-shadow: 0 0 10px red;
+}
+
+/* Ensure buttons are still usable */
+body.glitch-mode button,
+body.glitch-mode a.btn-merch {
+    animation: none; /* Override universal flicker for buttons */
+    filter: hue-rotate(90deg); /* Add a different effect */
+}
+
+/* Blog Page Styles */
+.blog-list-page main,
+.blog-post-page main {
+    background-color: #fff;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.blog-list-page header,
+.blog-post-page header {
+    margin-bottom: 2rem;
+}
+
+.blog-list-page h2,
+.blog-post-page h2 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.blog-summary {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.blog-summary:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+}
+
+.blog-summary h3 a {
+    color: #0a0a23;
+    text-decoration: none;
+}
+
+.blog-summary h3 a:hover {
+    text-decoration: underline;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Blog Post Specific Styles */
+.blog-post-page article p,
+.blog-post-page article ol,
+.blog-post-page article ul {
+    margin-bottom: 1rem;
+}
+
+.blog-post-page article strong {
+    color: #0a0a23;
+}
+
+.blog-post-page article em {
+    background-color: #f0f0f0;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-style: normal;
+}
+
+.blog-post-page article a {
+    color: #007bff;
+}
+
+.blog-post-page article a:hover {
+    text-decoration: underline;
+}
+
+.post-navigation {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.footer-nav {
+    margin-top: 0.5rem;
+}
+
+.footer-nav a {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Ensure footer style applies to blog pages too */
+.blog-list-page footer,
+.blog-post-page footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    background-color: #333;
+    color: #ccc;
+    font-size: 0.9rem;
+} 

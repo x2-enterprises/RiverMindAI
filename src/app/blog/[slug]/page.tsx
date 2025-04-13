@@ -1,6 +1,7 @@
 import { getPostBySlug } from '@/utils/blog'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import React from 'react'
 
 export async function generateMetadata(
   props: { params: { slug: string } }

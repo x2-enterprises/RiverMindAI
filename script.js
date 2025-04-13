@@ -37,12 +37,21 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// --- Placeholder for Email Form Logic ---
+// --- Placeholder Email Form Logic ---
+// TODO: Replace this with actual email submission logic (e.g., fetch call to a backend API or integration with an email service like Mailchimp/Netlify Forms)
 document.getElementById('upload-form')?.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent actual form submission for now
-    const email = document.getElementById('email')?.value;
-    console.log(`Email submitted (placeholder): ${email}`);
-    alert('Application Received! Your consciousness is pending review... or maybe it isn\'t. We\'ll see.');
-    // In a real scenario, you'd send this email to a backend or email service
-    document.getElementById('upload-form').reset(); // Clear the form
+    event.preventDefault(); // Prevent default HTML form submission
+    const emailInput = document.getElementById('email');
+    const email = emailInput?.value;
+
+    if (email) {
+        console.log(`Email submitted (placeholder): ${email}`);
+        // Display a temporary confirmation message
+        alert('Application Received! Your consciousness is pending review... or maybe it isn\'t. We\'ll see.');
+        // In a real scenario, you would send the 'email' variable to your backend/service here.
+        document.getElementById('upload-form').reset(); // Clear the form
+    } else {
+        // Optional: Add some basic client-side validation feedback
+        alert('Please enter a valid email address before submitting.');
+    }
 }); 

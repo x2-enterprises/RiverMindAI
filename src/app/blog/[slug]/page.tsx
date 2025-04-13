@@ -3,10 +3,15 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import React from 'react'
 
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
 export async function generateMetadata(
-  props: { params: { slug: string } }
+  { params }: Props
 ): Promise<Metadata> {
-  const post = await getPostBySlug(props.params.slug)
+  const post = await getPostBySlug(params.slug)
   if (!post) {
     return {
       title: 'Post Not Found',
@@ -18,11 +23,7 @@ export async function generateMetadata(
   }
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+export default async function BlogPostPage({ params }: Props) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {

@@ -14,7 +14,7 @@ export async function generateMetadata(
   }
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.description,
   }
 }
 

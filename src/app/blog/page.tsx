@@ -11,7 +11,7 @@ export default function BlogPage() {
         {posts.map(post => (
           <article key={post.slug} className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-2xl font-semibold mb-2">
-              <Link href={`/blog/${post.slug}`} className="text-white hover:text-blue-600 transition-colors">
+              <Link href={`/blog/${post.slug}`} className="text-gray-900 hover:text-blue-600 transition-colors">
                 {post.title}
               </Link>
             </h2>

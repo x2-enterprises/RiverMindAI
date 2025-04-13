@@ -26,6 +26,75 @@ const LiveSubscriberCount = () => {
   )
 }
 
+// New component for the Email Form logic
+const EmailCaptureForm = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus('loading');
+    setMessage('Submitting application...');
+
+    try {
+      const response = await fetch('https://formspree.io/f/meoandky', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }), // Send email as JSON
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setMessage('Application Received! Your consciousness is pending review... (Check your email for confirmation from Formspree).');
+        setEmail(''); // Clear the form
+      } else {
+        const data = await response.json();
+        setStatus('error');
+        setMessage(data.errors?.map((e: any) => e.message).join(", ") || 'An error occurred. Please try again.');
+      }
+    } catch (error) {
+      setStatus('error');
+      setMessage('An unexpected error occurred. Please check your connection and try again.');
+      console.error("Form submission error:", error);
+    }
+  };
+
+  return (
+    <form id="upload-form" onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="email" className="sr-only">Apply for Upload Eligibility:</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="Enter your email address" 
+          required 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={status === 'loading'}
+          className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7] focus:border-transparent disabled:opacity-50"
+        />
+      </div>
+      <button 
+        type="submit" 
+        disabled={status === 'loading'}
+        className="w-full bg-[#9ae6f0] hover:bg-[#9ae6f0]/90 text-black px-6 py-3 rounded-md text-lg font-semibold transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+      >
+        {status === 'loading' ? 'Submitting...' : 'Submit Application'}
+      </button>
+      {message && (
+        <p className={`mt-4 text-sm ${status === 'error' ? 'text-red-400' : status === 'success' ? 'text-green-400' : 'text-gray-400'}`}>
+          {message}
+        </p>
+      )}
+    </form>
+  );
+}
+
 export default function Home() {
   return (
     <div className="relative">
@@ -104,26 +173,8 @@ export default function Home() {
             The physical world is temporary. Rivermind offers eternity (subscription required).
             Apply for Upload Eligibility and join the waitlist.
           </p>
-          {/* TODO: Add actual form submission logic */}
-          <form id="upload-form" className="space-y-4">
-            <div>
-              <label htmlFor="email" className="sr-only">Apply for Upload Eligibility:</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                placeholder="Enter your email address" 
-                required 
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#ff6ec7] focus:border-transparent"
-              />
-            </div>
-            <button 
-              type="submit" 
-              className="w-full bg-[#9ae6f0] hover:bg-[#9ae6f0]/90 text-black px-6 py-3 rounded-md text-lg font-semibold transition-colors"
-            >
-              Submit Application
-            </button>
-          </form>
+          {/* Removed TODO comment and form structure, replaced with component */}
+          <EmailCaptureForm /> {/* Use the new form component */} 
           <p className="mt-4 text-xs text-gray-500">
             By submitting, you agree to our <Link href="/terms" className="underline hover:text-gray-300">Terms of Service</Link> and potential existential risks.
           </p>

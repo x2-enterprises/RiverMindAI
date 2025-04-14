@@ -1,74 +1,138 @@
 import React from 'react';
-import Image from 'next/image';
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Font,
+} from '@react-pdf/renderer';
+
+// Register standard serif font (ensure the font file is available)
+// If you don't have Times New Roman locally, you might need to find a .ttf file 
+// and host it or use a different available font.
+// For simplicity, let's assume a standard font might work, or comment this out if it causes issues.
+// Font.register({
+//   family: 'Times New Roman',
+//   src: '/path/to/times.ttf', // Provide the correct path to the font file
+// });
 
 interface CertificateProps {
   fullName: string;
-  approvalStatus: string;
-  neuralSummary: string;
-  diagnosticNote: string;
-  registeredMotto: string;
-  backupTimestamp: string;
+  neuralId: string;
+  verificationCode: string;
 }
 
-const CertificatePDF: React.FC<CertificateProps> = ({
-  fullName = "[Upload Recipient Name]",
-  approvalStatus = "[Pending Final Neural Sync]",
-  neuralSummary = "[Cognitive Profile Summary Placeholder]",
-  diagnosticNote = "[Initial Diagnostic Assessment Note]",
-  registeredMotto = "[User\'s Chosen Motto Placeholder]",
-  backupTimestamp = "[Timestamp Placeholder, e.g., 2025-04-13, 7:14 PM UTC]"
+// Create styles
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: '#ffffff',
+    color: '#000000',
+    padding: 40, // Increased padding for PDF layout
+    fontFamily: 'Times-Roman', // Use generic serif font name
+    border: '1pt solid #cccccc',
+  },
+  container: {
+    maxWidth: '500pt', // Roughly equivalent to max-w-2xl for PDF
+    margin: 'auto',
+  },
+  title: {
+    fontSize: 24, // Roughly 3xl
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  certificationText: {
+    fontSize: 14, // Roughly lg
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  userName: {
+    fontSize: 18, // Roughly 2xl
+    fontWeight: 'semibold', // react-pdf uses numbers or specific keywords
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  protocolText: {
+    fontSize: 14, // Roughly lg
+    textAlign: 'center',
+    marginBottom: 35,
+    lineHeight: 1.4,
+  },
+  detailsContainer: {
+    marginBottom: 35,
+    paddingHorizontal: 15,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+    fontSize: 11, // Roughly md
+  },
+  detailLabel: {
+    fontWeight: 'bold',
+  },
+  motto: {
+    fontSize: 10, // Roughly sm
+    fontStyle: 'italic',
+    color: '#555555', // Grayish color
+    textAlign: 'center',
+    marginTop: 40,
+    lineHeight: 1.3,
+  },
+});
+
+const CertificatePDFDocument: React.FC<CertificateProps> = ({
+  fullName,
+  neuralId,
+  verificationCode,
 }) => {
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
   return (
-    <div id="certificate-content" className="bg-gray-900 text-white p-8 border-4 border-gradient-to-r from-[#9ae6f0] to-[#ff6ec7] font-mono relative max-w-2xl mx-auto my-10 shadow-xl" style={{ fontFamily: '"Courier New", Courier, monospace' }}>
-      {/* Holographic Seal - Placeholder */} 
-      <div className="absolute top-4 right-4 opacity-30">
-        {/* Replace with actual Image component once you have the seal */}
-         <div className="w-20 h-20 bg-gradient-to-br from-[#9ae6f0]/50 to-[#ff6ec7]/50 rounded-full flex items-center justify-center text-xs text-center border border-white/30">
-           RIVERMIND <br/> CERTIFIED
-         </div>
-        {/* <Image src="/path/to/holographic-seal.png" alt="Rivermind Seal" width={80} height={80} /> */}
-      </div>
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.container}>
+          <Text style={styles.title}>ETERNAL YOU™ CERTIFICATE</Text>
 
-      <h1 className="text-3xl font-bold text-center mb-2 font-orbitron bg-gradient-to-r from-[#9ae6f0] to-[#ff6ec7] text-transparent bg-clip-text">
-        Eternal You™ Neural Certificate
-      </h1>
-      <p className="text-center text-sm text-gray-400 mb-8">OFFICIAL CONSCIOUSNESS BACKUP RECORD</p>
+          <Text style={styles.certificationText}>This certifies that:</Text>
 
-      <div className="space-y-4 text-sm">
-        <div className="grid grid-cols-3 gap-4">
-          <span className="text-gray-500">FULL UPLOAD NAME:</span>
-          <span className="col-span-2 text-[#9ae6f0]">{fullName}</span>
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          <span className="text-gray-500">APPROVAL STATUS:</span>
-          <span className="col-span-2 font-bold text-green-400">{approvalStatus}</span>
-        </div>
-        <hr className="border-gray-700 my-6" />
-        <div className="grid grid-cols-3 gap-4">
-          <span className="text-gray-500">NEURAL SUMMARY:</span>
-          <span className="col-span-2 text-gray-300">{neuralSummary}</span>
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          <span className="text-gray-500">DIAGNOSTIC NOTE:</span>
-          <span className="col-span-2 text-gray-400 italic">{diagnosticNote}</span>
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          <span className="text-gray-500">REGISTERED MOTTO:</span>
-          <span className="col-span-2 text-[#ff6ec7]">"{registeredMotto}"</span>
-        </div>
-        <hr className="border-gray-700 my-6" />
-        <div className="grid grid-cols-3 gap-4">
-          <span className="text-gray-500">BACKUP GENERATED:</span>
-          <span className="col-span-2 text-gray-500">{backupTimestamp}</span>
-        </div>
-      </div>
+          <Text style={styles.userName}>{fullName}</Text>
 
-      <p className="text-xs text-gray-600 mt-8 text-center">
-        RiverMind.ai Internal Document RC-7B. Unauthorized duplication or sharing outside the approved neural network is strictly monitored.
-        <br/> *Certificate validity contingent upon continued subscription adherence.*
-      </p>
-    </div>
+          <Text style={styles.protocolText}>
+            has passed Rivermind's Eternal You™ Vetting Protocol
+            {/* Line break is implicit or needs careful handling in react-pdf */}
+            {`\n`} 
+            and is authorized for Premium Consciousness Activation.
+          </Text>
+
+          <View style={styles.detailsContainer}>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailLabel}>Neural ID:</Text>
+              <Text>{neuralId}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailLabel}>Verification Code:</Text>
+              <Text>{verificationCode}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <Text style={styles.detailLabel}>Dated:</Text>
+              <Text>{currentDate}</Text>
+            </View>
+          </View>
+
+          <Text style={styles.motto}>
+            "If you are not cheating, then you are not working hard enough."
+            {`\n`}— Registered Motto
+          </Text>
+        </View>
+      </Page>
+    </Document>
   );
 };
 
-export default CertificatePDF; 
+export default CertificatePDFDocument; 

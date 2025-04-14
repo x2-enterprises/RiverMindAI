@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 interface FormData {
   uploadName: string;
+  email: string;
   memory: string;
   bodyScore: number;
   adConsent: string;
@@ -20,6 +21,7 @@ export default function VettingPage() {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     uploadName: '',
+    email: '',
     memory: '',
     bodyScore: 5, // Default range value
     adConsent: '',
@@ -50,7 +52,7 @@ export default function VettingPage() {
 
     // Basic validation (excluding suppressedFeelings)
     const requiredFields: (keyof Omit<FormData, 'suppressedFeelings'>)[] = [
-        'uploadName', 'memory', 'bodyScore', 'adConsent', 'dreamtone',
+        'uploadName', 'email', 'memory', 'bodyScore', 'adConsent', 'dreamtone',
         'language', 'forgettingFear', 'simulationAwareness', 'motto'
     ];
 
@@ -104,6 +106,10 @@ export default function VettingPage() {
         <div>
           <label htmlFor="uploadName" className="block text-sm font-medium text-gray-300 mb-1">What's your full upload name?</label>
           <input type="text" id="uploadName" name="uploadName" value={formData.uploadName} onChange={handleChange} required className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-white" />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">Contact Email (for certificate delivery & vital updates)</label>
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required placeholder="your.consciousness@provider.ext" className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-500" />
         </div>
         <div>
            <label htmlFor="motto" className="block text-sm font-medium text-gray-300 mb-1">Upload your consciousness motto</label>

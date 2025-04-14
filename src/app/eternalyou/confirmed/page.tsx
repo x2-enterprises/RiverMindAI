@@ -78,11 +78,11 @@ const ConfirmedContent = () => {
           <div className="bg-gray-800/60 p-4 rounded border border-white/10 md:col-span-2">
             <h3 className="font-semibold text-[#9ae6f0] mb-2">Exclusive Merch Discount</h3>
             <p className="text-sm text-gray-400 mb-3">Use code <code className="bg-gray-900 px-1.5 py-0.5 rounded text-[#ff6ec7] font-bold">UPLOAD15</code> for 15% off your next order at the RiverMind Store.</p>
-            <Link href="/store"> {/* Assuming a store page exists or will exist */}
+            {/* <Link href="/store"> // Assuming a store page exists or will exist - REMOVED FOR NOW
               <span className="inline-block text-purple-400 hover:text-purple-300 text-sm font-semibold transition-colors">
                 Visit Store →
               </span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

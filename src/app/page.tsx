@@ -39,27 +39,28 @@ const EmailCaptureForm = () => {
     event.preventDefault();
     setStatus('loading');
     setMessage('Submitting application...');
-    setShowSurveyModal(false); // Ensure modal is hidden initially
-    console.log('[EmailForm] Submitting...');
+    setShowSurveyModal(false); 
+    console.log('[EmailForm] Submitting to internal API...');
 
     try {
-      const response = await fetch('https://formspree.io/f/meoandky', {
+      const response = await fetch('/api/subscribe', { 
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }), // Send email as JSON
+        body: JSON.stringify({ email }),
       });
 
-      console.log('[EmailForm] Response status:', response.status);
-      console.log('[EmailForm] Response ok?:', response.ok);
+      console.log('[EmailForm] Internal API response status:', response.status); 
+      console.log('[EmailForm] Internal API response ok?:', response.ok);
+
+      const data = await response.json();
 
       if (response.ok) {
         console.log('[EmailForm] Entering response.ok block.');
         setStatus('success');
-        setMessage('Application Received! Your consciousness is pending review...');
-        setEmail(''); // Clear the form
+        setMessage(data.message || 'Application Received! Your consciousness is pending review...');
+        setEmail(''); 
         console.log('[EmailForm] Submission successful. Setting timer for modal...');
         const timerId = setTimeout(() => {
           console.log('[EmailForm] Timer finished. Showing modal.');
@@ -68,13 +69,12 @@ const EmailCaptureForm = () => {
         console.log('[EmailForm] setTimeout scheduled with ID:', timerId);
       } else {
         console.log('[EmailForm] Entering response NOT ok block.');
-        const data = await response.json();
         setStatus('error');
-        setMessage(data.errors?.map((e: any) => e.message).join(", ") || 'An error occurred. Please try again.');
-        console.error('[EmailForm] Submission error response:', data);
+        setMessage(data.message || 'An error occurred. Please try again.'); 
+        console.error('[EmailForm] Submission error response from internal API:', data);
       }
     } catch (error) {
-      console.error('[EmailForm] Entering CATCH block.');
+      console.error('[EmailForm] Entering CATCH block for internal API fetch.');
       setStatus('error');
       setMessage('An unexpected error occurred. Please check your connection and try again.');
       console.error("[EmailForm] Form submission fetch/catch error:", error);

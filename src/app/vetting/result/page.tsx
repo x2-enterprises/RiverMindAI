@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import CertificatePDF from '@/components/CertificatePDF.tsx';
+import CertificatePDF from '@/components/CertificatePDF';
 import generatePDF from '@/utils/generatePDF';
 
 // Define a more specific type for the results expected from sessionStorage

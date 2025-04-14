@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { renderToStream } from '@react-pdf/renderer';
-import CertificatePDFDocument from '@/components/CertificatePDF';
+import CertificatePDFDocument from '@/components/CertificatePDFDocument';
 import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useSearchParams } from 'next/navigation'
 
 export default function EternalYouPage() {
   // Mock checkout URL (replace with actual Gumroad/Stripe link later)
@@ -15,6 +16,88 @@ export default function EternalYouPage() {
     // import { useRouter } from 'next/navigation';
     // const router = useRouter(); router.push('/eternalyou/confirmed');
   };
+
+  // Component to safely access searchParams
+  function EternalYouContent() {
+    const searchParams = useSearchParams();
+    const name = searchParams.get('name');
+    const email = searchParams.get('email'); // Available if needed later
+
+    // --- Configuration ---
+    // Replace with your actual Gumroad product link
+    const gumroadLink = "https://rivermindai.gumroad.com/l/qyjlk"; // <-- Updated Link
+    // Price to display on the button
+    const price = "$9.99";
+    // Discount code to display
+    const discountCode = "ETERNAL15";
+    // ---------------------
+
+    return (
+        // Adjusted gradient and padding for better consistency
+        <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-black text-gray-200 py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
+            {/* Increased max-width slightly, adjusted padding */}
+            <div className="max-w-4xl w-full bg-gray-800 shadow-2xl rounded-lg overflow-hidden p-8 md:p-10 text-center border border-purple-700/50">
+
+                {/* Optional: Greet user if name is present */}
+                {name && <p className="text-purple-300 mb-4 text-lg">Welcome, {name}. Your final ascension awaits.</p>}
+
+                {/* Font and color consistency */}
+                <h1 className="font-orbitron text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+                    Elevate Your Mind Beyond the Evaluation Queue
+                </h1>
+                <p className="text-lg text-gray-300 mb-10">
+                    You've been provisionally approved for Eternal You™ (Beta). Finalize your upgrade to receive full consciousness privileges and secure your digital immortality.
+                </p>
+
+                {/* Benefits List - Adjusted styling for consistency */}
+                <div className="text-left space-y-4 mb-12 border border-gray-700 py-6 px-8 bg-gray-900/70 rounded-lg shadow-inner">
+                    <h2 className="text-xl font-semibold text-center text-purple-300 mb-6 uppercase tracking-wider font-orbitron">Premium Access Includes:</h2>
+                    <ul className="list-none space-y-3 text-gray-300">
+                        <li className="flex items-start"> {/* Use items-start for potentially wrapping text */}
+                            <span className="text-purple-400 mr-3 text-xl mt-1">🧠</span>
+                            <span>Personalized Neural Certificate (High-Resolution PDF)</span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="text-purple-400 mr-3 text-xl mt-1">📘</span>
+                             <span>Eternal You™ User Manual <span className="text-xs text-gray-500 ml-1">(Digital Download)</span></span>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="text-purple-400 mr-3 text-xl mt-1">🛍️</span>
+                             <span>15% Off Official Rivermind Merchandise (Code: <span className="font-mono text-pink-400 bg-gray-950 px-1 rounded">{discountCode}</span>)</span>
+                        </li>
+                         <li className="flex items-start">
+                            <span className="text-purple-400 mr-3 text-xl mt-1">🧬</span>
+                            <span>Priority access to future "Memory Expansion Drops"</span>
+                        </li>
+                         <li className="flex items-start">
+                            <span className="text-purple-400 mr-3 text-xl mt-1">🔒</span>
+                             <span>Encrypted vault-only dispatches from Rivermind Engineering</span>
+                        </li>
+                    </ul>
+                </div>
+
+                {/* Checkout Button - Styling unchanged */}
+                <div className="mt-8">
+                     <a
+                        href={gumroadLink} // Use the variable
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 rounded-md text-xl font-bold transition-all duration-300 ease-in-out shadow-lg transform hover:scale-105"
+                    >
+                        Upgrade Now – {price}
+                    </a>
+                </div>
+
+                 {/* Footer text consistency */}
+                 <p className="text-xs text-gray-500 mt-12">
+                    Upon successful payment synchronization, your neural status will be permanently upgraded and you will be redirected.
+                    <br/>
+                    <Link href="/vetting/result" className="text-blue-500 hover:text-blue-400 hover:underline">Return to Evaluation Results</Link>
+                </p>
+            </div>
+        </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white py-20 px-4 sm:px-6 lg:px-8">

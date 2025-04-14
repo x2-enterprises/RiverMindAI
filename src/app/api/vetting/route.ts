@@ -129,7 +129,6 @@ Please respond only with a valid JSON object with these four keys: "neuralSummar
         model: "gpt-4",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.8,
-        response_format: { type: "json_object" },
       });
 
       console.log("Received OpenAI response:", completion.choices[0].message.content);
@@ -137,7 +136,18 @@ Please respond only with a valid JSON object with these four keys: "neuralSummar
       if (!completion.choices[0].message.content) {
          throw new Error("OpenAI returned an empty response.");
       }
-      const openAIResult = JSON.parse(completion.choices[0].message.content);
+      
+      // Attempt to parse the JSON response from OpenAI
+      // Add extra check in case the model didn't return perfect JSON despite the prompt
+      let openAIResult;
+      try {
+        openAIResult = JSON.parse(completion.choices[0].message.content);
+      } catch (parseError) {
+        console.error("Failed to parse OpenAI response as JSON:", parseError);
+        console.log("Raw OpenAI response content:", completion.choices[0].message.content);
+        throw new Error("OpenAI response was not valid JSON."); // Trigger fallback
+      }
+
       apiResponse = {
         fullName: formData.uploadName || "[Redacted Candidate Name]", 
         email: formData.email || "[Email Not Provided]", 

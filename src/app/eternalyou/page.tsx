@@ -127,14 +127,18 @@ export default function EternalYouPage() {
           </ul>
         </div>
 
-        <motion.button 
+        <motion.button
           onClick={handleCheckout}
           className="w-full max-w-md mx-auto bg-[#ff6ec7] hover:bg-[#ff6ec7]/90 text-white px-8 py-4 rounded-md text-xl font-semibold transition-colors shadow-lg"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Unlock Premium Immortality - $999 (One-Time Upload Fee)
+          Unlock Premium Immortality – $9.99 (One-Time Upload Fee)
         </motion.button>
+
+        <small className="text-xs text-gray-400 mt-1 block text-center">
+          Certified consciousness containment included. No recurring uploads required.
+        </small>
 
         <p className="mt-6 text-xs text-gray-500">
           Payment processed securely by our partners in digital soul acquisition.

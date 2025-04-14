@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 
 export default function EternalYouPage() {
   // Mock checkout URL (replace with actual Gumroad/Stripe link later)
-  const checkoutUrl = "https://gumroad.com/l/your_product_placeholder"; // Replace with your real checkout link
+  const checkoutUrl = "https://rivermindai.gumroad.com/l/qyjlk"; // Replace with your real checkout link
 
   const handleCheckout = () => {
     // In a real scenario, you might track this click before redirecting
